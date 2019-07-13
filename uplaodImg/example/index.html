@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../js/imgUpload.js"></script>
+</head>
+<body>
+
+  <div class="box"></div>
+
+  <button class="get">获取上传的图片</button>
+  <button class="set">设置图片</button>
+  <button class="clean">清除图片</button>
+
+  <script>
+    let box = document.querySelector('.box');
+    const getBtn = document.querySelector('.get');
+    const setBtn = document.querySelector('.set');
+    const cleanBtn = document.querySelector('.clean');
+    let upload = new ImageUpload(box,
+        {
+            multiple: true,
+            changeFn: function(files) {
+                console.log(files);
+            },
+            deleteFn: function (src, files) {
+                console.log(src);
+                console.log(files);
+            }
+        });
+    upload.init();
+
+    getBtn.onclick = function() {
+        console.log(upload.getFiles());
+    };
+
+    setBtn.onclick = function() {
+        const list = [
+            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1690699292,1481547313&fm=27&gp=0.jpg',
+            'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3245994356,1314206822&fm=27&gp=0.jpg',
+            'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2802409799,1306440791&fm=27&gp=0.jpg',
+        ];
+        upload.setDefault(list);
+    };
+
+    cleanBtn.onclick = function () {
+        upload.clean();
+    }
+
+  </script>
+</body>
+</html>
